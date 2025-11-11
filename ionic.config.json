@@ -1,0 +1,7 @@
+{
+  "name": "HostifyCliente",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
