@@ -1,0 +1,91 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home" *ngIf="!vistaMapa"></ion-back-button>
+      <ion-button (click)="toggleVista()" *ngIf="vistaMapa">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Resultados</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleVista()">
+        <ion-icon slot="icon-only" [name]="vistaMapa ? 'list-outline' : 'map-outline'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [class.map-is-active]="vistaMapa">
+  
+  <div class="list-wrapper" [hidden]="vistaMapa">
+    
+    <div class="results-list" *ngIf="isLoading">
+      <ion-card *ngFor="let item of [1,2,3]">
+        <div class="skeleton-image">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+        <ion-card-header>
+          <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+          <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <div class="results-list" *ngIf="!isLoading">
+      
+      <div *ngIf="resultados.length === 0" class="no-results-container">
+        <ion-icon name="sad-outline"></ion-icon>
+        <ion-label>No se encontraron resultados</ion-label>
+        <p>Intenta ajustar tus filtros de búsqueda.</p>
+      </div>
+
+      <ion-card 
+        *ngFor="let lugar of resultados; let i = index; trackBy: trackById"
+        (click)="verDetalle(lugar.id)" 
+        button
+        [style.--stagger-index]="i % 10"
+      >
+        <img 
+          class="card-image"
+          [src]="getPrimeraFoto(lugar)" 
+          (error)="$event.target.src = defaultImage" 
+        />
+        <ion-card-header>
+          <ion-card-title>
+            <div class="title-line">
+              <span>{{ lugar.nombre }}</span>
+            </div>
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="description">{{ lugar.descripcion | slice:0:100 }}...</p>
+          <div class="info-row">
+            <span class="info-item">
+              {{ lugar.cantPersonas }} personas
+            </span>
+            <span class="info-item-name">{{lugar.arrendatario?.nombrecompleto}}</span>
+          </div>
+          <p class="price">
+            <strong>${{ lugar.precioNoche | number:'1.2-2' }}</strong>
+            <span>/ noche</span>
+          </p>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)" threshold="400px">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+
+    </div>
+  </div>
+
+  <capacitor-google-map 
+    #map 
+    class="map-container"
+    [hidden]="!vistaMapa">
+  </capacitor-google-map>
+
+</ion-content>

@@ -1,0 +1,123 @@
+@keyframes animatedGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  ion-content {
+    --background: #0b0f19 !important;
+    --color: #E5E7EB !important;
+  }
+  
+  ion-header ion-toolbar {
+    --background: var(--ion-background-color, #1A20C);
+    --color: var(--ion-text-color, #E5E7EB);
+  }
+  
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+  
+  .page-content-fade-in {
+    animation: fadeIn 0.8s ease-out;
+  }
+  
+
+  .lugar-summary-item {
+    --background: var(--ion-card-background, #252e42);
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 16px;
+    --padding-bottom: 16px;
+    margin: 16px;
+    border-radius: 12px;
+  
+    ion-img {
+      width: 100px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 16px;
+      background-color: rgba(255,255,255,0.1);
+    }
+    
+    ion-label {
+      h2 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--ion-text-color, #E5E7EB);
+        margin-bottom: 8px;
+        white-space: normal;
+      }
+      p {
+        font-size: 0.9rem;
+        color: var(--ion-text-color-secondary, #9CA3AF);
+      }
+    }
+  }
+  
+  .section-container {
+    padding: 0 16px;
+    margin-bottom: 20px;
+  
+    h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--ion-text-color, #E5E7EB);
+      margin-bottom: 10px;
+      padding-left: 16px;
+    }
+    
+
+    ion-item {
+      --background: transparent;
+      --color: var(--ion-text-color-secondary, #9CA3AF);
+      --border-color: var(--ion-card-background, #252e42);
+      --inner-padding-end: 16px;
+      --inner-padding-start: 16px;
+      font-size: 0.9rem;
+  
+      ion-text {
+        color: var(--ion-text-color, #E5E7EB);
+      }
+    }
+  
+    .total-item {
+      font-size: 1.1rem;
+      margin-top: 8px;
+    }
+  }
+  
+  ion-footer {
+    background: var(--ion-card-background, #252e42);
+    padding: 8px 16px 16px;
+  
+    ion-toolbar {
+      --background: transparent;
+    }
+  
+    .animated-button {
+      --background: linear-gradient(
+        90deg, 
+        var(--ion-color-primary), 
+        var(--ion-color-secondary), 
+        var(--ion-color-primary)
+      );
+      --background-hover: var(--background);
+      --background-activated: var(--background);
+      background-size: 200% 100%;
+      animation: animatedGradient 3s ease infinite;
+      --color: var(--ion-color-primary-contrast, #0c1a24);
+      font-weight: 600;
+      margin: 0;
+      height: 48px;
+    }
+  }

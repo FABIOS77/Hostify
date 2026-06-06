@@ -1,0 +1,62 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Mis Reservas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="isLoading" class="spinner-container">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && misReservas.length === 0" class="no-results-container">
+    <ion-icon name="sad-outline"></ion-icon>
+    <ion-label>No tienes reservas</ion-label>
+    <p>Cuando hagas una reserva, aparecerá aquí.</p>
+  </div>
+
+  <div class="reservas-list" *ngIf="!isLoading && misReservas.length > 0">
+    <ion-card *ngFor="let reserva of misReservas" class="reserva-card page-content-fade-in">
+      <div class="card-content">
+        
+        <ion-img 
+          [src]="getReservaFotoUrl(reserva)"
+          (ionError)="$event.target.src = defaultImage">
+        </ion-img>
+
+        <div class="info" *ngIf="reserva.lugar?.[0] as lugar">
+          
+          <ion-card-title>{{ lugar.nombre || 'Alojamiento' }}</ion-card-title>
+          
+          <div class="detail-item">
+            <ion-icon name="home-outline"></ion-icon>
+            <ion-label>{{ lugar.ciudad || 'Ciudad' }}</ion-label>
+          </div>
+          
+          <div class="detail-item">
+            <ion-icon name="cash-outline"></ion-icon>
+            <ion-label>
+              <strong>${{ reserva.precioTotal | number:'1.2-2' }}</strong> 
+              ({{ reserva.cant_noches || calcularNoches(reserva.fechaInicio, reserva.fechaFin) }} noches)
+            </ion-label>
+          </div>
+
+          <div class="detail-item">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <ion-label>{{ reserva.fechaInicio | date:'dd/MM/yyyy' }} - {{ reserva.fechaFin | date:'dd/MM/yyyy' }}</ion-label>
+          </div>
+          
+          <div class="detail-item" *ngIf="lugar.arrendatario">
+            <ion-icon name="person-outline"></ion-icon>
+            <ion-label>Anfitrión: {{ lugar.arrendatario.nombrecompleto }}</ion-label>
+          </div>
+
+        </div>
+        </div>
+    </ion-card>
+  </div>
+</ion-content>

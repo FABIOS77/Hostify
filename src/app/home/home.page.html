@@ -1,20 +1,122 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="form-container">
+    <h1 class="app-title">¿A dónde vamos?</h1>
+    <ion-list class="search-list">
+      <ion-item>
+        <ion-input
+          label="Ciudad"
+          labelPlacement="floating"
+          placeholder="Ingresa la Ciudad"
+          [(ngModel)]="paramsBusqueda.ciudad"
+        ></ion-input>
+      </ion-item>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+      <ion-item *ngIf="showDatePickers">
+        <ion-label>Fecha de llegada</ion-label>
+        <ion-datetime-button datetime="datetimeLlegada" modal="modal-llegada"></ion-datetime-button>
+      </ion-item>
+
+        <ion-item *ngIf="showDatePickers">
+          <ion-label>Fecha de salida</ion-label>
+          <ion-datetime-button datetime="datetimeSalida" modal="modal-salida"></ion-datetime-button>
+        </ion-item>
+
+      <ion-item>
+        <ion-input
+          label="Cantidad de huéspedes"
+          labelPlacement="floating"
+          type="number"
+          min="1"
+          [(ngModel)]="paramsBusqueda.cantHuespedes"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label>Búsqueda Avanzada</ion-label>
+        <ion-toggle [(ngModel)]="busquedaAvanzadaActiva"></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngIf="busquedaAvanzadaActiva" class="search-list advanced-list">
+      <ion-item>
+        <ion-input
+          label="Precio Máx. por Noche"
+          labelPlacement="floating"
+          type="number"
+          [(ngModel)]="paramsBusqueda.precioNoche"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Nro. Camas"
+          labelPlacement="floating"
+          type="number"
+          min="1"
+          [(ngModel)]="paramsBusqueda.cantCamas"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Nro. Baños"
+          labelPlacement="floating"
+          type="number"
+          min="1"
+          [(ngModel)]="paramsBusqueda.cantBanios"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Nro. Habitaciones"
+          labelPlacement="floating"
+          type="number"
+          min="1"
+          [(ngModel)]="paramsBusqueda.cantHabitaciones"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          label="Nro. Parqueos"
+          labelPlacement="floating"
+          type="number"
+          min="0"
+          [(ngModel)]="paramsBusqueda.cantVehiculosParqueo"
+        ></ion-input>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Wi-Fi</ion-label>
+        <ion-toggle [(ngModel)]="paramsBusqueda.tieneWifi"></ion-toggle>
+      </ion-item>
+    </ion-list>
+
+    <div class="ion-padding-horizontal button-container">
+      <ion-button 
+        expand="block" 
+        (click)="buscar()"
+        class="animated-button"
+      >
+        {{ busquedaAvanzadaActiva ? 'Buscar (Avanzada)' : 'Buscar' }}
+      </ion-button>
+    </div>
   </div>
+
+  <ion-modal id="modal-llegada" [keepContentsMounted]="true" (didDismiss)="onDateChange()">
+    <ng-template>
+      <ion-datetime
+        id="datetimeLlegada"
+        presentation="date"
+        [(ngModel)]="paramsBusqueda.fecha_llegada"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <ion-modal id="modal-salida" [keepContentsMounted]="true" (didDismiss)="onDateChange()">
+    <ng-template>
+      <ion-datetime
+        id="datetimeSalida"
+        presentation="date"
+        [(ngModel)]="paramsBusqueda.fecha_salida"
+      ></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
 </ion-content>

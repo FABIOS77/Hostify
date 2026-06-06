@@ -1,0 +1,104 @@
+/* --- Definición de Animaciones --- */
+
+// Animación de gradiente (para el botón)
+@keyframes animatedGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  :host {
+    --background-image: url('https://topyucatan.com/storage/uploads/airbnb-frente-al-mar-1683210409.jpg');
+  }
+  
+  ion-content {
+    --background: 
+      linear-gradient(rgba(26, 32, 44, 0.7), rgba(26, 32, 44, 0.9)),
+      var(--background-image) no-repeat center center / cover;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+    
+    animation: fadeIn 1s ease-out;
+  }
+  
+  .app-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+  
+    background: -webkit-linear-gradient(45deg, var(--ion-color-primary), var(--ion-color-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  
+  ion-item {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    backdrop-filter: blur(5px);
+    --background: transparent;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    
+    --color: #ffffff;
+    --placeholder-color: rgba(255, 255, 255, 0.8);
+    
+    ion-label {
+      color: rgba(255, 255, 255, 0.8) !important;
+    }
+    &.item-invalid ion-label {
+      color: rgba(255, 255, 255, 0.8) !important;
+    }
+  }
+  
+  .item-native, ion-item {
+    --inner-border-width: 0;
+    --border-width: 0;
+  }
+  
+  
+  .animated-button {
+    --border-radius: 10px;
+    margin-top: 20px;
+    
+    --background: linear-gradient(
+      90deg, 
+      var(--ion-color-primary), 
+      var(--ion-color-secondary), 
+      var(--ion-color-primary)
+    );
+    
+    --background-hover: var(--background);
+    --background-activated: var(--background);
+    
+    background-size: 200% 100%;
+    
+    animation: animatedGradient 3s ease infinite;
+  }
+  
+  ion-button[fill="clear"] {
+    color: var(--ion-text-color-secondary);
+    text-transform: none;
+    font-size: 0.9rem;
+  }

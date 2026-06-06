@@ -1,0 +1,68 @@
+<ion-content>
+  
+  <ion-header class="ion-no-border">
+    <ion-toolbar class="floating-toolbar">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/login"></ion-back-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="form-container">
+    
+    <h1 class="app-title">Crear Cuenta</h1>
+
+    <form [formGroup]="registroForm" (ngSubmit)="onRegistro()" style="width: 100%;">
+      
+      <ion-item>
+        <ion-input
+          label="Nombre Completo"
+          labelPlacement="floating"
+          type="text"
+          formControlName="nombrecompleto"
+        ></ion-input>
+      </ion-item>
+      
+      <ion-item class="ion-margin-top">
+        <ion-input
+          label="Email"
+          labelPlacement="floating"
+          type="email"
+          formControlName="email"
+        ></ion-input>
+      </ion-item>
+      
+      <ion-item class="ion-margin-top">
+        <ion-input
+          label="Teléfono"
+          labelPlacement="floating"
+          type="tel"
+          formControlName="telefono"
+        ></ion-input>
+      </ion-item>
+
+      <ion-item class="ion-margin-top">
+        <ion-input
+          label="Contraseña"
+          labelPlacement="floating"
+          type="password"
+          formControlName="password"
+        ></ion-input>
+      </ion-item>
+       <ion-text>
+         <small class="ion-padding-start helper-text">Mínimo 6 caracteres.</small>
+      </ion-text>
+
+
+      <ion-button
+        class="ion-margin-top animated-button"
+        type="submit"
+        expand="block"
+        [disabled]="registroForm.invalid || isLoading"
+      >
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <span *ngIf="!isLoading">Crear Cuenta</span>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

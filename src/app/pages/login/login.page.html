@@ -1,0 +1,52 @@
+<ion-content>
+  <div class="form-container">
+    <h1 class="app-title">Hostify Go</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" style="width: 100%;">
+      <ion-item>
+        <ion-input
+          label="Email"
+          labelPlacement="floating"
+          type="email"
+          formControlName="email"
+          errorText="Email inválido"
+        ></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
+        <small class="ion-padding-start">Email es requerido y debe ser válido.</small>
+      </ion-text>
+      <ion-item class="ion-margin-top">
+        <ion-input
+          label="Contraseña"
+          labelPlacement="floating"
+          type="password"
+          formControlName="password"
+          errorText="Contraseña inválida"
+        ></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid">
+        <small class="ion-padding-start">Contraseña es requerida (mín. 6 caracteres).</small>
+      </ion-text>
+
+
+      <ion-button
+        class="ion-margin-top animated-button"
+        type="submit"
+        expand="block"
+        [disabled]="loginForm.invalid || isLoading"
+      >
+        <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+        <span *ngIf="!isLoading">Iniciar Sesión</span>
+      </ion-button>
+    </form>
+
+    <ion-button
+      class="ion-margin-top"
+      expand="block"
+      fill="clear"
+      [routerLink]="['/registro']"
+    >
+      ¿No tienes cuenta? Regístrate
+    </ion-button>
+    
+  </div>
+</ion-content>

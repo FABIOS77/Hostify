@@ -1,0 +1,155 @@
+
+/* --- Definición de Animaciones --- */
+
+// Animación de gradiente (para el botón)
+@keyframes animatedGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  
+  // Animación de entrada (para el formulario)
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* --- Estilos de Fondo --- */
+  :host {
+    --background-image: url('https://a0.muscache.com/im/pictures/miso/Hosting-33344176/original/4fe6cdd5-85c9-45d9-bf9a-d437f80d2e35.png?im_w=720');
+  }
+  
+  ion-content {
+    --background: 
+      linear-gradient(rgba(26, 32, 44, 0.7), rgba(26, 32, 44, 0.9)),
+      var(--background-image) no-repeat center center / cover;
+  }
+  
+  /* --- Contenedor y Título --- */
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+    
+    /* Aplicamos la animación de entrada */
+    animation: fadeIn 1s ease-out;
+  }
+  
+  .app-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+  
+    /* Efecto de texto con gradiente */
+    background: -webkit-linear-gradient(45deg, var(--ion-color-primary), var(--ion-color-secondary));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  
+  /* --- Inputs (Vidrio Esmerilado MEJORADO) --- */
+  ion-item {
+    /* Fondo de vidrio más brillante */
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3); // Borde sutil para resaltar
+    
+    backdrop-filter: blur(5px);
+    --background: transparent;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    
+    /* Color del texto y label */
+    --color: #ffffff;
+    --placeholder-color: rgba(255, 255, 255, 0.8);
+    
+    ion-label {
+      color: rgba(255, 255, 255, 0.8) !important;
+    }
+  
+    /* ✅ CORRECCIÓN VISUAL: 
+       Evita que el label se ponga rojo en estado de error */
+    &.item-invalid ion-label {
+      color: rgba(255, 255, 255, 0.8) !important;
+    }
+  }
+  
+  /* Oculta las líneas nativas de ion-item */
+  .item-native, ion-item {
+    --inner-border-width: 0;
+    --border-width: 0;
+  }
+  
+  
+  /* --- Botón (Gradiente Animado) --- */
+  .animated-button {
+    --border-radius: 10px;
+    margin-top: 20px;
+    
+    /* El gradiente usa nuestros colores */
+    --background: linear-gradient(
+      90deg, 
+      var(--ion-color-primary), 
+      var(--ion-color-secondary), 
+      var(--ion-color-primary)
+    );
+    
+    --background-hover: var(--background);
+    --background-activated: var(--background);
+    
+    background-size: 200% 100%; // Clave para la animación
+    
+    /* Aplicamos la animación */
+    animation: animatedGradient 3s ease infinite;
+  }
+  
+  /* Botón de registrarse */
+  ion-button[fill="clear"] {
+    color: var(--ion-text-color-secondary);
+    text-transform: none;
+    font-size: 0.9rem;
+  }
+
+
+/* --- Estilos para el Botón de Volver Flotante --- */
+
+.floating-toolbar {
+    --background: transparent; // Hace la barra transparente
+    
+    ion-back-button {
+      color: white; // Color del icono
+      --color: white;
+    }
+  }
+  
+  /* Ajustamos el contenedor:
+    Como este formulario es más largo, no lo centramos verticalmente,
+    sino que lo alineamos arriba.
+  */
+  .form-container {
+    justify-content: flex-start; // Lo alineamos arriba
+    padding-top: 60px; // Dejamos espacio para el botón de volver
+  }
+  
+  /* Hacemos el título de "Crear Cuenta" un poco más pequeño
+    para que no compita con "Hostify Go".
+  */
+  .app-title {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilo para el texto de ayuda de la contraseña
+  */
+  .helper-text {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }

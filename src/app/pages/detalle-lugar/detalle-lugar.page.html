@@ -1,0 +1,103 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading" class="spinner-container">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && lugar" class="page-content-fade-in">
+    
+    <ion-img 
+      class="main-image"
+      [src]="fotoSeleccionadaUrl"
+      (ionError)="fotoSeleccionadaUrl = defaultImage">
+    </ion-img>
+
+    <div class="thumbnail-wrapper" *ngIf="lugar.fotos && lugar.fotos.length > 1">
+      <ion-img 
+        *ngFor="let foto of lugar.fotos"
+        class="thumbnail-image"
+        [class.selected]="fotoSeleccionadaUrl.includes(foto.url)"
+        [src]="getFullImageUrl(foto.url)"
+        (click)="seleccionarFoto(foto)">
+      </ion-img>
+    </div>
+
+    <div class="info-container">
+      <h1>{{ lugar.nombre }}</h1>
+      <p class="price-mobile">
+        <strong>${{ lugar.precioNoche | number:'1.2-2' }}</strong>
+        <span> / noche</span>
+      </p>
+      
+      <p class="description">{{ lugar.descripcion }}</p>
+
+      <div class="anfitrion-info">
+        Alojamiento de <strong>{{ lugar.arrendatario?.nombrecompleto || 'Anfitrión' }}</strong>
+      </div>
+
+      <ion-grid class="specs-grid">
+        <ion-row>
+          <ion-col size="6">
+            <div class="spec-item">
+              <ion-icon name="body-outline" aria-hidden="true"></ion-icon>
+              <ion-label>{{ lugar.cantPersonas }} personas</ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="spec-item">
+              <ion-icon name="bed-outline" aria-hidden="true"></ion-icon>
+              <ion-label>{{ lugar.cantCamas }} camas</ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="spec-item">
+              <ion-icon name="water-outline" aria-hidden="true"></ion-icon>
+              <ion-label>{{ lugar.cantBanios }} baños</ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="spec-item">
+              <ion-icon name="key-outline" aria-hidden="true"></ion-icon>
+              <ion-label>{{ lugar.cantHabitaciones }} habitaciones</ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="spec-item">
+              <ion-icon name="wifi-outline" aria-hidden="true"></ion-icon>
+              <ion-label>{{ lugar.tieneWifi ? 'Tiene Wi-Fi' : 'No tiene Wi-Fi' }}</ion-label>
+            </div>
+          </ion-col>
+          <ion-col size="6">
+            <div class="spec-item">
+              <ion-icon name="car-sport-outline" aria-hidden="true"></ion-icon>
+              <ion-label>
+                {{ lugar.cantVehiculosParqueo > 0 ? 'Parqueo (' + lugar.cantVehiculosParqueo + ' veh.)' : 'No tiene parqueo' }}
+              </ion-label>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="!isLoading && lugar">
+  <ion-toolbar>
+    <div class="footer-content">
+      <div class="price-container">
+        <strong>${{ lugar.precioNoche | number:'1.2-2' }}</strong>
+        <ion-text> / noche</ion-text>
+      </div>
+      <ion-button (click)="irAReservar()" shape="round" class="animated-button">
+        Reservar
+      </ion-button>
+    </div>
+  </ion-toolbar>
+</ion-footer>

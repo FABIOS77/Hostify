@@ -1,0 +1,73 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home" icon="chevron-back-outline"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Confirmar Reserva</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="isLoading" class="spinner-container">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && lugar" class="page-content-fade-in">
+    
+    <ion-item lines="none" class="lugar-summary-item">
+      <ion-img [src]="getFullImageUrl()"></ion-img>
+      <ion-label>
+        <h2>{{ lugar.nombre }}</h2>
+        <p>{{ lugar.ciudad }}</p>
+      </ion-label>
+    </ion-item>
+
+    <div class="section-container">
+      <h3>Tu viaje</h3>
+      <ion-item lines="none">
+        <ion-label>Fechas</ion-label>
+        <ion-text slot="end">{{ fechaInicio }} - {{ fechaFin }}</ion-text>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label>Noches</ion-label>
+        <ion-text slot="end">{{ cantNoches }}</ion-text>
+      </ion-item>
+    </div>
+    
+    <div class="section-container">
+      <h3>Desglose del precio</h3>
+      <ion-item lines="none">
+        <ion-label>${{ precioPorNoche | number:'1.2-2' }} x {{ cantNoches }} noches</ion-label>
+        <ion-text slot="end">${{ precioNochesTotal | number:'1.2-2' }}</ion-text>
+      </ion-item>
+      <ion-item lines="none">
+        <ion-label>Gastos de limpieza</ion-label>
+        <ion-text slot="end">${{ precioLimpieza | number:'1.2-2' }}</ion-text>
+      </ion-item>
+      <ion-item lines="full">
+        <ion-label>Tarifa por servicio</ion-label>
+        <ion-text slot="end">${{ precioServicio | number:'1.2-2' }}</ion-text>
+      </ion-item>
+      
+      <ion-item lines="none" class="total-item">
+        <ion-label><strong>Total (USD)</strong></ion-label>
+        <ion-text slot="end"><strong>${{ precioTotal | number:'1.2-2' }}</strong></ion-text>
+      </ion-item>
+    </div>
+
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border" *ngIf="!isLoading && lugar">
+  <ion-toolbar>
+    <ion-button 
+      (click)="confirmarReserva()" 
+      [disabled]="isSubmitting"
+      class="animated-button"
+      expand="block"
+      shape="round">
+      <span *ngIf="!isSubmitting">Confirmar y pagar</span>
+      <ion-spinner *ngIf="isSubmitting" name="crescent"></ion-spinner>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,39 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    
+    <ion-tab-button tab="home">
+      <ion-icon name="search-outline"></ion-icon>
+      <ion-label>Buscar</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="mis-reservas">
+      <ion-icon name="list-outline"></ion-icon>
+      <ion-label>Mis Reservas</ion-label>
+    </ion-tab-button>
+
+    <div class="fake-tab-button" (click)="presentLogoutConfirm()">
+      <ion-icon name="log-out-outline"></ion-icon>
+      <ion-label>Salir</ion-label>
+    </div>
+
+  </ion-tab-bar>
+</ion-tabs>
+
+<div class="custom-modal-overlay" *ngIf="isModalOpen">
+  
+  <div class="modal-backdrop" (click)="closeModal()"></div>
+
+  <div class="modal-content">
+    <div class="modal-icon">
+      <ion-icon name="log-out-outline"></ion-icon>
+    </div>
+    <h2>Cerrar Sesión</h2>
+    <p>¿Estás seguro de que quieres salir de la aplicación?</p>
+    
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeModal()">Cancelar</button>
+      <button class="btn-confirm" (click)="logout()">Sí, Salir</button>
+    </div>
+  </div>
+
+</div>
